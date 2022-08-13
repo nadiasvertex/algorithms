@@ -1,4 +1,4 @@
-module algorithms
+module github.com/nadiasvertex/algorithms
 
 go 1.18
 
