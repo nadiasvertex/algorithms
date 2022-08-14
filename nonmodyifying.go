@@ -2,8 +2,6 @@ package algorithms
 
 import "golang.org/x/exp/constraints"
 
-type Predicate[T any] func(value T) bool
-
 func Max[T constraints.Ordered](v1, v2 T) T {
 	if v1 > v2 {
 		return v1
