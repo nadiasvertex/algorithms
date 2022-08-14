@@ -8,6 +8,16 @@ func Transform[T1, T2 any](srcCollection []T1, dstCollection []T2, unary UnaryTr
 	}
 }
 
+// TransformAppend transforms all items in srcCollection to items in dstCollection. dstCollection must be at
+// least as big as srcCollection.
+func TransformAppend[T1, T2 any](srcCollection []T1, unary UnaryTransform[T1, T2]) []T2 {
+	var dstCollection []T2
+	for _, item := range srcCollection {
+		dstCollection = append(dstCollection, unary(item))
+	}
+	return dstCollection
+}
+
 // TransformIf transforms all items in srcCollection that match the given predicate. dstCollection must
 // be at least as large as srcCollection. The return value indicates how many items werre copied.
 func TransformIf[T1, T2 any](srcCollection []T1, dstCollection []T2, pred Predicate[T1], unary UnaryTransform[T1,

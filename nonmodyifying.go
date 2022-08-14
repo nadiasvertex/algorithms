@@ -9,32 +9,6 @@ func Max[T constraints.Ordered](v1, v2 T) T {
 	return v2
 }
 
-func Find[T comparable](collection []T, value T) int {
-	for i, item := range collection {
-		if item == value {
-			return i
-		}
-	}
-	return -1
-}
-
-func FindIf[T comparable](collection []T, pred Predicate[T]) int {
-	for i, item := range collection {
-		if pred(item) {
-			return i
-		}
-	}
-	return -1
-}
-
-func Contains[T comparable](collection []T, value T) bool {
-	return Find(collection, value) >= 0
-}
-
-func ContainsIf[T comparable](collection []T, pred Predicate[T]) bool {
-	return FindIf(collection, pred) >= 0
-}
-
 func AllOf[T comparable](collection []T, value T) bool {
 	for _, item := range collection {
 		if item != value {
@@ -87,26 +61,6 @@ func AnyOfIf[T comparable](collection []T, pred Predicate[T]) bool {
 		}
 	}
 	return false
-}
-
-func Count[T comparable](collection []T, value T) int {
-	count := 0
-	for _, item := range collection {
-		if item == value {
-			count++
-		}
-	}
-	return count
-}
-
-func CountIf[T comparable](collection []T, pred Predicate[T]) int {
-	count := 0
-	for _, item := range collection {
-		if pred(item) {
-			count++
-		}
-	}
-	return count
 }
 
 func Mismatch[T comparable](collection1, collection2 []T) int {
