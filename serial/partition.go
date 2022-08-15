@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Partition[T comparable](collection []T, pred Predicate[T]) int {
 	first := FindIfNot(collection, pred)

@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Remove[T comparable](collection []T, value T) []T {
 	pivot := Partition(collection, func(item T) bool {

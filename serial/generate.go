@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Generate[T comparable](collection []T, g Generator[T]) int {
 	count := 0

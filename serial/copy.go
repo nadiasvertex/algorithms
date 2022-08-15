@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 // Copy copies all items in srcCollection to dstCollection.
 func Copy[T comparable](srcCollection []T, dstCollection []T) {

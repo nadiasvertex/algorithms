@@ -1,5 +1,7 @@
-package algorithms
+package serial
 
+// Unique eliminates all except the first element from every consecutive group
+// of equivalent elements from the collection.
 func Unique[T comparable](collection []T) []T {
 	first := 0
 	last := len(collection)

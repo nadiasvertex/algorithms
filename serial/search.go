@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 import "golang.org/x/exp/constraints"
 

@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Contains[T comparable](collection []T, value T) bool {
 	return Find(collection, value) >= 0

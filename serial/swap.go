@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Swap[T any](i1, i2 *T) {
 	i3 := *i1

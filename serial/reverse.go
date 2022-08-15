@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Reverse[T any](collection []T) {
 	first := 0

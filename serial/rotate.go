@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Rotate[T any](collection []T, nFirst int) int {
 	return RotateRange(collection, 0, nFirst, len(collection))

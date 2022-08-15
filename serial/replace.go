@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Replace[T comparable](collection []T, old_value, new_value T) int {
 	count := 0

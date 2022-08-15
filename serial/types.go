@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 type Predicate[T any] func(value T) bool
 

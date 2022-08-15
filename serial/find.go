@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Find[T comparable](collection []T, value T) int {
 	for i, item := range collection {

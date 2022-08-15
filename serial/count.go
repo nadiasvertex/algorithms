@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 func Count[T comparable](collection []T, value T) int {
 	count := 0

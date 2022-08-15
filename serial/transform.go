@@ -1,4 +1,4 @@
-package algorithms
+package serial
 
 // Transform transforms all items in srcCollection to items in dstCollection. dstCollection must be at
 // least as big as srcCollection.
