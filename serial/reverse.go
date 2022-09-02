@@ -14,7 +14,7 @@ func ReverseCopy[T any](collection []T) []T {
 	newCollection := make([]T, len(collection))
 	last := len(collection) - 1
 	first := 0
-	for first != last {
+	for first < len(collection) {
 		newCollection[first] = collection[last]
 		first++
 		last--

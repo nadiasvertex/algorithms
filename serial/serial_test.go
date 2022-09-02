@@ -855,23 +855,30 @@ func TestRemoveIf(t *testing.T) {
 		})
 	}
 }
+*/
 
 func TestReplace(t *testing.T) {
 	type args struct {
-		collection []T
-		old_value  T
-		new_value  T
+		collection []int
+		oldValue   int
+		newValue   int
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
+		{name: "replace 1 with 0",
+			args: args{
+				collection: []int{0, 1, 2, 3, 1, 4, 5, 6, 1, 8, 9},
+				oldValue:   1,
+				newValue:   0,
+			},
+			want: 3},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Replace(tt.args.collection, tt.args.old_value, tt.args.new_value); got != tt.want {
+			if got := Replace(tt.args.collection, tt.args.oldValue, tt.args.newValue); got != tt.want {
 				t.Errorf("Replace() = %v, want %v", got, tt.want)
 			}
 		})
@@ -880,20 +887,30 @@ func TestReplace(t *testing.T) {
 
 func TestReplaceIf(t *testing.T) {
 	type args struct {
-		collection []T
-		pred       Predicate
-		new_value  T
+		collection []int
+		pred       common.Predicate[int]
+		newValue   int
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "replace even numbers with 1",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+				newValue: 1,
+			},
+			want: 5,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ReplaceIf(tt.args.collection, tt.args.pred, tt.args.new_value); got != tt.want {
+			if got := ReplaceIf(tt.args.collection, tt.args.pred, tt.args.newValue); got != tt.want {
 				t.Errorf("ReplaceIf() = %v, want %v", got, tt.want)
 			}
 		})
@@ -902,31 +919,47 @@ func TestReplaceIf(t *testing.T) {
 
 func TestReverse(t *testing.T) {
 	type args struct {
-		collection []T
+		collection []int
 	}
 	tests := []struct {
 		name string
 		args args
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "reverse monotonic",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			},
+			want: []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Reverse(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("Reverse() = %v, want %v", tt.args.collection, tt.want)
+			}
 		})
 	}
 }
 
 func TestReverseCopy(t *testing.T) {
 	type args struct {
-		collection []T
+		collection []int
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "reverse monotonic",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			},
+			want: []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -937,6 +970,7 @@ func TestReverseCopy(t *testing.T) {
 	}
 }
 
+/*
 func TestRotate(t *testing.T) {
 	type args struct {
 		collection []T

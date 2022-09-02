@@ -1,6 +1,7 @@
 package parallel
 
 import (
+	"github.com/nadiasvertex/algorithms/common"
 	"reflect"
 	"testing"
 
@@ -100,6 +101,74 @@ func TestFind(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Find(tt.args.collection, tt.args.value); got != tt.want {
 				t.Errorf("Find() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReplace(t *testing.T) {
+	type args struct {
+		collection []int
+		oldValue   int
+		newValue   int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{name: "replace 1 with 0",
+			args: args{
+				collection: serial.Generate(make([]int, 5000), func(index int) int {
+					if index%2 == 0 {
+						return 1
+					} else {
+						return index
+					}
+				}),
+				oldValue: 1,
+				newValue: 0,
+			},
+			want: 2501},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Replace(tt.args.collection, tt.args.oldValue, tt.args.newValue); got != tt.want {
+				t.Errorf("Replace() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReplaceIf(t *testing.T) {
+	type args struct {
+		collection []int
+		pred       common.Predicate[int]
+		newValue   int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "replace even numbers with 1",
+			args: args{
+				collection: serial.Generate(make([]int, 5000), func(index int) int {
+					return index
+				}),
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+				newValue: 1,
+			},
+			want: 2500,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ReplaceIf(tt.args.collection, tt.args.pred, tt.args.newValue); got != tt.want {
+				t.Errorf("ReplaceIf() = %v, want %v", got, tt.want)
 			}
 		})
 	}
