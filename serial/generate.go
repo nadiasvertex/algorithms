@@ -1,9 +1,10 @@
 package serial
 
-func Generate[T comparable](collection []T, g Generator[T]) int {
-	count := 0
+import "github.com/nadiasvertex/algorithms/common"
+
+func Generate[T any](collection []T, g common.Generator[T]) []T {
 	for i := range collection {
-		collection[i] = g()
+		collection[i] = g(i)
 	}
-	return count
+	return collection
 }

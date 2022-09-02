@@ -14,7 +14,7 @@ func Find[T comparable](collection []T, value T) int {
 		if i != -1 {
 			for {
 				globalFound := index.Load()
-				localFound := int64(i)
+				localFound := int64(i) + int64(first)
 				if localFound < globalFound {
 					if !index.CompareAndSwap(globalFound, localFound) {
 						continue

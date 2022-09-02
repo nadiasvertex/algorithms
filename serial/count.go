@@ -1,5 +1,7 @@
 package serial
 
+import "github.com/nadiasvertex/algorithms/common"
+
 func Count[T comparable](collection []T, value T) int {
 	count := 0
 	for _, item := range collection {
@@ -10,7 +12,7 @@ func Count[T comparable](collection []T, value T) int {
 	return count
 }
 
-func CountIf[T comparable](collection []T, pred Predicate[T]) int {
+func CountIf[T comparable](collection []T, pred common.Predicate[T]) int {
 	count := 0
 	for _, item := range collection {
 		if pred(item) {

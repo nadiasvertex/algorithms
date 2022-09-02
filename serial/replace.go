@@ -1,5 +1,7 @@
 package serial
 
+import "github.com/nadiasvertex/algorithms/common"
+
 func Replace[T comparable](collection []T, old_value, new_value T) int {
 	count := 0
 	for i, item := range collection {
@@ -11,7 +13,7 @@ func Replace[T comparable](collection []T, old_value, new_value T) int {
 	return count
 }
 
-func ReplaceIf[T comparable](collection []T, pred Predicate[T], new_value T) int {
+func ReplaceIf[T comparable](collection []T, pred common.Predicate[T], new_value T) int {
 	count := 0
 	for i, item := range collection {
 		if pred(item) {

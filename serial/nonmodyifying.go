@@ -1,6 +1,9 @@
 package serial
 
-import "golang.org/x/exp/constraints"
+import (
+	"github.com/nadiasvertex/algorithms/common"
+	"golang.org/x/exp/constraints"
+)
 
 func Max[T constraints.Ordered](v1, v2 T) T {
 	if v1 > v2 {
@@ -18,7 +21,7 @@ func AllOf[T comparable](collection []T, value T) bool {
 	return true
 }
 
-func AllOfIf[T comparable](collection []T, pred Predicate[T]) bool {
+func AllOfIf[T comparable](collection []T, pred common.Predicate[T]) bool {
 	for _, item := range collection {
 		if !pred(item) {
 			return false
@@ -36,7 +39,7 @@ func NoneOf[T comparable](collection []T, value T) bool {
 	return true
 }
 
-func NoneOfIf[T comparable](collection []T, pred Predicate[T]) bool {
+func NoneOfIf[T comparable](collection []T, pred common.Predicate[T]) bool {
 	for _, item := range collection {
 		if pred(item) {
 			return false
@@ -54,7 +57,7 @@ func AnyOf[T comparable](collection []T, value T) bool {
 	return false
 }
 
-func AnyOfIf[T comparable](collection []T, pred Predicate[T]) bool {
+func AnyOfIf[T comparable](collection []T, pred common.Predicate[T]) bool {
 	for _, item := range collection {
 		if pred(item) {
 			return true

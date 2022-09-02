@@ -1,5 +1,7 @@
 package serial
 
+import "github.com/nadiasvertex/algorithms/common"
+
 // Copy copies all items in srcCollection to dstCollection.
 func Copy[T comparable](srcCollection []T, dstCollection []T) {
 	for i, item := range srcCollection {
@@ -8,8 +10,10 @@ func Copy[T comparable](srcCollection []T, dstCollection []T) {
 }
 
 // CopyIf copies items from srcCollection that match the given predicate. dstCollection
-// must have space for at least as many items as srcCollection.
-func CopyIf[T comparable](srcCollection []T, dstCollection []T, pred Predicate[T]) int {
+// must have space for at most the same number of items as srcCollection. If you
+// know a priori how big the destination collection must be, this will more efficient than
+// CopyAppendIf.
+func CopyIf[T comparable](srcCollection []T, dstCollection []T, pred common.Predicate[T]) int {
 	output := 0
 	for _, item := range srcCollection {
 		if pred(item) {
@@ -23,7 +27,7 @@ func CopyIf[T comparable](srcCollection []T, dstCollection []T, pred Predicate[T
 // CopyAppendIf copies items from srcCollection that match the given predicate. The
 // items are copied to a new collection. The return value is a collection of items
 // that match the predicate
-func CopyAppendIf[T comparable](srcCollection []T, pred Predicate[T]) []T {
+func CopyAppendIf[T comparable](srcCollection []T, pred common.Predicate[T]) []T {
 	var dstCollection []T
 	for _, item := range srcCollection {
 		if pred(item) {

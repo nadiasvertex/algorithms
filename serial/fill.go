@@ -1,9 +1,8 @@
 package serial
 
-func Fill[T comparable](collection []T, value T) int {
-	count := 0
+func Fill[T any](collection []T, value T) []T {
 	for i := range collection {
 		collection[i] = value
 	}
-	return count
+	return collection
 }
