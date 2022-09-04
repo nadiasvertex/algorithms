@@ -4,6 +4,7 @@ import "sync"
 
 type Worker func()
 type ChunkWorker func(first, last int)
+type MirrorChunkWorker func(leftFirst, leftLast, rightFirst, rightLast int)
 
 const DefaultChunkSize = 512
 
@@ -73,6 +74,29 @@ func processChunk(metrics chunkMetrics, base, chunkIndex int, f ChunkWorker) {
 	f(first, last)
 }
 
+func processMirrorChunk(metrics chunkMetrics, outerFirst, outerLast, chunkIndex int, f MirrorChunkWorker) {
+	var thisChunkSize int
+	if chunkIndex == 0 {
+		thisChunkSize = metrics.firstChunkSize
+	} else {
+		thisChunkSize = metrics.chunkSize
+	}
+	var index int
+	if chunkIndex == 0 {
+		index = 0
+	} else {
+		index = (chunkIndex * metrics.chunkSize) + (metrics.firstChunkSize - metrics.chunkSize)
+	}
+
+	leftFirst := outerFirst + index
+	leftLast := leftFirst + thisChunkSize
+
+	rightLast := outerLast - index
+	rightFirst := rightLast - thisChunkSize
+
+	f(leftFirst, leftLast, rightFirst, rightLast)
+}
+
 func Fork(w1, w2 Worker) {
 	var wg sync.WaitGroup
 
@@ -104,6 +128,10 @@ func Process(ws []Worker) {
 	wg.Wait()
 }
 
+// ProcessChunks slices the range [first,last) up into chunks of
+// DefaultChunkSize. Each of those chunks is processed by `f` in parallel.
+// The amount of parallelism is determined by the Go runtime. This function
+// will not return until all chunks have been processed.
 func ProcessChunks(first, last int, f ChunkWorker) {
 	var wg sync.WaitGroup
 	metrics := chunkPartitioner(first, last, DefaultChunkSize)
@@ -112,6 +140,26 @@ func ProcessChunks(first, last int, f ChunkWorker) {
 	for i := 0; i < metrics.nChunks; i++ {
 		go func(chunk int) {
 			processChunk(metrics, first, chunk, f)
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
+}
+
+// ProcessMirrorChunks slices the range [first, last-((last-first)/2)) into chunks of
+// DefaultChunkSize/2 items. The chunks are taken from the beginning _and_ the
+// end of the collection. The mirror chunk worker `f` is provided a range at the
+// beginning and its mirror at the end of the range. This function will not
+// return until all chunks have been processed.
+func ProcessMirrorChunks(first, last int, f MirrorChunkWorker) {
+	var wg sync.WaitGroup
+	half := (last - first) / 2
+	metrics := chunkPartitioner(first, first+half, DefaultChunkSize/2)
+
+	wg.Add(metrics.nChunks)
+	for i := 0; i < metrics.nChunks; i++ {
+		go func(chunk int) {
+			processMirrorChunk(metrics, first, last, chunk, f)
 			wg.Done()
 		}(i)
 	}

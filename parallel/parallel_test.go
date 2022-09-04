@@ -173,3 +173,56 @@ func TestReplaceIf(t *testing.T) {
 		})
 	}
 }
+
+func TestReverse(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "reverse monotonic",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			},
+			want: []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Reverse(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("Reverse() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
+
+func TestReverseCopy(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "reverse monotonic",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+			},
+			want: []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ReverseCopy(tt.args.collection); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ReverseCopy() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
