@@ -13,7 +13,6 @@ func Reverse[T any](collection []T) {
 		for leftFirst < leftLast {
 			serial.SwapIndex(collection, leftFirst, rightLast)
 			leftFirst++
-			leftLast--
 			rightLast--
 		}
 	})

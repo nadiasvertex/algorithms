@@ -159,7 +159,7 @@ func ProcessMirrorChunks(first, last int, f MirrorChunkWorker) {
 	wg.Add(metrics.nChunks)
 	for i := 0; i < metrics.nChunks; i++ {
 		go func(chunk int) {
-			processMirrorChunk(metrics, first, last, chunk, f)
+			processMirrorChunk(metrics, first, last-1, chunk, f)
 			wg.Done()
 		}(i)
 	}
