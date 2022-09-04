@@ -1,6 +1,9 @@
 package execution
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestThen(t *testing.T) {
 	wanted := 100
@@ -15,16 +18,29 @@ func TestThen(t *testing.T) {
 }
 
 func TestThenStopped(t *testing.T) {
-	stopped := false
 	s := Then(Just(10), func(v int) int {
+		time.Sleep(2 * time.Second)
 		return v * v
-	}).OnStopped(func() {
-		stopped = true
 	})
 
+	go func() {
+		time.Sleep(1 * time.Second)
+		// Send the stop signal
+		s.Stop()
+	}()
+
+	start := time.Now()
 	if _, err := SyncWait(s); err != nil {
 		t.Errorf("expected no error, got error: '%v'", err)
-	} else if !stopped {
+	}
+	duration := time.Now().Sub(start)
+
+	if !s.Stopped() {
 		t.Errorf("expected execution chain to be stopped")
+	}
+
+	if duration >= time.Second*2 {
+		t.Errorf("expected execution chain to stop after one second, but stopped after: %.02f seconds",
+			duration.Seconds())
 	}
 }

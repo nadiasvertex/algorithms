@@ -1,8 +1,8 @@
 package execution
 
-func SyncWait[Output any](snd Sender[Output]) (Output, error) {
+func SyncWait[Output any](snd *Sender[Output]) (Output, error) {
 	var v Output
-	r := snd()
+	r := snd.Eval()
 	select {
 	case v = <-r.Value():
 		return v, nil
