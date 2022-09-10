@@ -620,7 +620,7 @@ func TestMinMaxElement(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if min, max := MinMaxElement(tt.args.collection); min != tt.want[0] || max != tt.want[1] {
-				t.Errorf("MinElement() = (%d, %d), want %v", min, max, tt.want)
+				t.Errorf("MinMaxElement() = (%d, %d), want %v", min, max, tt.want)
 			}
 		})
 	}
@@ -707,6 +707,54 @@ func TestMin(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Min(tt.args.v1, tt.args.v2); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Min() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClamp(t *testing.T) {
+	type args struct {
+		value int
+		lower int
+		upper int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "clamp to lower range",
+			args: args{
+				value: 5,
+				lower: 10,
+				upper: 20,
+			},
+			want: 10,
+		},
+		{
+			name: "clamp to upper range",
+			args: args{
+				value: 50,
+				lower: 10,
+				upper: 20,
+			},
+			want: 20,
+		},
+		{
+			name: "no clamp needed",
+			args: args{
+				value: 15,
+				lower: 10,
+				upper: 20,
+			},
+			want: 15,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Clamp(tt.args.value, tt.args.lower, tt.args.upper); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Clamp() = %v, want %v", got, tt.want)
 			}
 		})
 	}

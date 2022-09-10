@@ -2,6 +2,21 @@ package serial
 
 import "golang.org/x/exp/constraints"
 
+// Clamp returns the value clamped to a range. If value is less than lower,
+// lower is returned. If value is greater than upper, upper is returned.
+// Otherwise value is returned.
+func Clamp[T constraints.Ordered](value, lower, upper T) T {
+	if value <= lower {
+		return lower
+	}
+
+	if value >= upper {
+		return upper
+	}
+
+	return value
+}
+
 // Max returns the greater of the two values, or the first value if they are
 // the same.
 func Max[T constraints.Ordered](v1, v2 T) T {
