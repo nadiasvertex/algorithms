@@ -970,51 +970,77 @@ func TestReverseCopy(t *testing.T) {
 	}
 }
 
+func TestRotate(t *testing.T) {
+	type args struct {
+		collection []int
+		nFirst     int
+	}
+	tests := []struct {
+		name          string
+		args          args
+		want          int
+		newCollection []int
+	}{
+		{
+			name: "rotate entire collection",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8},
+				nFirst:     5,
+			},
+			want:          3,
+			newCollection: []int{6, 7, 8, 1, 2, 3, 4, 5},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Rotate(tt.args.collection, tt.args.nFirst); got != tt.want {
+				t.Errorf("Rotate() = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(tt.args.collection, tt.newCollection) {
+				t.Errorf("Rotate() = %v, want %v", tt.args.collection, tt.newCollection)
+			}
+		})
+	}
+}
+
+func TestRotateRange(t *testing.T) {
+	type args struct {
+		collection []int
+		first      int
+		nFirst     int
+		last       int
+	}
+	tests := []struct {
+		name          string
+		args          args
+		want          int
+		newCollection []int
+	}{
+		{
+			name: "rotate inner range",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8},
+				first:      2,
+				nFirst:     4,
+				last:       6,
+			},
+			want:          4,
+			newCollection: []int{1, 2, 5, 6, 3, 4, 7, 8},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := RotateRange(tt.args.collection, tt.args.first, tt.args.nFirst, tt.args.last); got != tt.want {
+				t.Errorf("RotateRange() = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(tt.args.collection, tt.newCollection) {
+				t.Errorf("RotateRange() = %v, want %v", tt.args.collection, tt.newCollection)
+			}
+		})
+	}
+}
+
 /*
-	func TestRotate(t *testing.T) {
-		type args struct {
-			collection []T
-			nFirst     int
-		}
-		tests := []struct {
-			name string
-			args args
-			want int
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				if got := Rotate(tt.args.collection, tt.args.nFirst); got != tt.want {
-					t.Errorf("Rotate() = %v, want %v", got, tt.want)
-				}
-			})
-		}
-	}
-
-	func TestRotateRange(t *testing.T) {
-		type args struct {
-			collection []T
-			first      int
-			nFirst     int
-			last       int
-		}
-		tests := []struct {
-			name string
-			args args
-			want int
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				if got := RotateRange(tt.args.collection, tt.args.first, tt.args.nFirst, tt.args.last); got != tt.want {
-					t.Errorf("RotateRange() = %v, want %v", got, tt.want)
-				}
-			})
-		}
-	}
-
 	func TestSort(t *testing.T) {
 		type args struct {
 			collection []T
