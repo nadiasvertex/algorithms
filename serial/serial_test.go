@@ -796,35 +796,50 @@ func TestPartition(t *testing.T) {
 	}
 }
 
-/*
 func TestRandomShuffle(t *testing.T) {
 	type args struct {
-		collection []T
+		collection []int
 	}
 	tests := []struct {
-		name string
-		args args
+		name    string
+		args    args
+		notWant []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "shuffle ints",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8},
+			},
+			notWant: []int{1, 2, 3, 4, 5, 6, 7, 8},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			RandomShuffle(tt.args.collection)
+			if got := RandomShuffle(tt.args.collection); reflect.DeepEqual(got, tt.notWant) {
+				t.Errorf("RandomShuffle() = %v, want %v", got, tt.notWant)
+			}
 		})
 	}
 }
 
 func TestRemove(t *testing.T) {
 	type args struct {
-		collection []T
-		value      T
+		collection []int
+		value      int
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "remove ones",
+			args: args{
+				collection: []int{1, 2, 1, 3, 1, 4, 1, 5, 1, 6},
+				value:      1,
+			},
+			want: []int{2, 3, 4, 5, 6},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -837,15 +852,24 @@ func TestRemove(t *testing.T) {
 
 func TestRemoveIf(t *testing.T) {
 	type args struct {
-		collection []T
-		pred       Predicate
+		collection []int
+		pred       common.Predicate[int]
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "remove even values",
+			args: args{
+				collection: []int{1, 2, 3, 4, 5, 6, 7, 8},
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+			},
+			want: []int{1, 3, 5, 7},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -855,7 +879,6 @@ func TestRemoveIf(t *testing.T) {
 		})
 	}
 }
-*/
 
 func TestReplace(t *testing.T) {
 	type args struct {
@@ -1147,47 +1170,6 @@ func TestInsertionSort(t *testing.T) {
 		})
 	}
 }
-
-/*
-	func TestSort(t *testing.T) {
-		type args struct {
-			collection []T
-		}
-		tests := []struct {
-			name string
-			args args
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				Sort(tt.args.collection)
-			})
-		}
-	}
-
-	func TestSortPartition(t *testing.T) {
-		type args struct {
-			collection []T
-			lo         int
-			hi         int
-		}
-		tests := []struct {
-			name string
-			args args
-			want int
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				if got := SortPartition(tt.args.collection, tt.args.lo, tt.args.hi); got != tt.want {
-					t.Errorf("SortPartition() = %v, want %v", got, tt.want)
-				}
-			})
-		}
-	}
-*/
 
 func TestSwap(t *testing.T) {
 	v1 := 5
