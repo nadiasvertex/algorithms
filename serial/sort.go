@@ -5,12 +5,18 @@ import (
 	"math"
 )
 
+// Sort sorts the collection in ascending order. This version of sort uses the
+// best non-stable algorithm known to the library. Currently, that is introsort,
+// but may change across releases.
 func Sort[T constraints.Ordered](collection []T) {
 	maxDepth := int(math.Log2(float64(len(collection)))) * 2
-	IntroSort(collection, maxDepth)
+	IntroSortWithDepth(collection, maxDepth)
 }
 
-func SortPartition[T constraints.Ordered](collection []T, lo, hi int) int {
+// sortPartition performs a partition operation on collection suitable for
+// quicksort-like algorithms. This may differ from Partition, so it is
+// implemented here and is not exposed.
+func sortPartition[T constraints.Ordered](collection []T, lo, hi int) int {
 	pivot := collection[hi]
 	i := lo - 1
 	for j := lo; j < hi-1; j++ {
@@ -25,6 +31,7 @@ func SortPartition[T constraints.Ordered](collection []T, lo, hi int) int {
 	return i
 }
 
+// HeapSort sorts the collection using the heap sort algorithm.
 func HeapSort[T constraints.Ordered](collection []T) {
 	MakeHeap(collection)
 	size := len(collection)
@@ -36,6 +43,7 @@ func HeapSort[T constraints.Ordered](collection []T) {
 	}
 }
 
+// InsertionSort sorts the collection using the insertion sort algorithm.
 func InsertionSort[T constraints.Ordered](collection []T) {
 	for i := range collection {
 		item := collection[i]
@@ -48,15 +56,28 @@ func InsertionSort[T constraints.Ordered](collection []T) {
 	}
 }
 
-func IntroSort[T constraints.Ordered](collection []T, maxDepth int) {
+// IntroSort sorts the collection in ascending order using the introsort
+// algorithm and a default depth for recursion bail-out.
+func IntroSort[T constraints.Ordered](collection []T) {
+	maxDepth := int(math.Log2(float64(len(collection)))) * 2
+	IntroSortWithDepth(collection, maxDepth)
+}
+
+// IntroSortWithDepth sorts the collection using the introsort algorithm. The maxDepth
+// parameter is an indication of how many deep the recursion can go before
+// bailing out and falling back to heap sort. This prevents the worst case
+// behavior of quicksort. Normally that should be set to int(math.Log2(float64(len(collection)))) * 2,
+// which is what the IntroSort function sets it to. It shouldn't be larger than that,
+// but it may be less if you want to fall back to heap sort sooner.
+func IntroSortWithDepth[T constraints.Ordered](collection []T, maxDepth int) {
 	n := len(collection)
 	if n < 16 {
 		InsertionSort(collection)
 	} else if maxDepth == 0 {
 		HeapSort(collection)
 	} else {
-		pivot := SortPartition(collection, 0, n-1)
-		IntroSort(collection[0:pivot], maxDepth-1)
-		IntroSort(collection[pivot:n], maxDepth-1)
+		pivot := sortPartition(collection, 0, n-1)
+		IntroSortWithDepth(collection[0:pivot], maxDepth-1)
+		IntroSortWithDepth(collection[pivot:n], maxDepth-1)
 	}
 }

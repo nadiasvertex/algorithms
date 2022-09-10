@@ -2,7 +2,7 @@ package serial
 
 import "golang.org/x/exp/rand"
 
-// RandomShuffle Reorders the elements in the given collection such that each
+// RandomShuffle reorders the elements in the given collection such that each
 // possible permutation of those elements has equal probability of appearance.
 func RandomShuffle[T comparable](collection []T) []T {
 	n := len(collection)
