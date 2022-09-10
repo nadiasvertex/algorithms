@@ -4,10 +4,11 @@ import "github.com/nadiasvertex/algorithms/common"
 
 // Transform transforms all items in srcCollection to items in dstCollection. dstCollection must be at
 // least as big as srcCollection.
-func Transform[T1, T2 any](srcCollection []T1, dstCollection []T2, unary common.UnaryTransform[T1, T2]) {
+func Transform[T1, T2 any](srcCollection []T1, dstCollection []T2, unary common.UnaryTransform[T1, T2]) []T2 {
 	for i, item := range srcCollection {
 		dstCollection[i] = unary(item)
 	}
+	return dstCollection
 }
 
 // TransformAppend transforms all items in srcCollection to items in dstCollection. dstCollection must be at
@@ -23,7 +24,7 @@ func TransformAppend[T1, T2 any](srcCollection []T1, unary common.UnaryTransform
 // TransformIf transforms all items in srcCollection that match the given predicate. dstCollection must
 // be at least as large as srcCollection. The return value indicates how many items werre copied.
 func TransformIf[T1, T2 any](srcCollection []T1, dstCollection []T2, pred common.Predicate[T1], unary common.UnaryTransform[T1,
-	T2]) int {
+	T2]) []T2 {
 	output := 0
 	for _, item := range srcCollection {
 		if pred(item) {
@@ -32,7 +33,7 @@ func TransformIf[T1, T2 any](srcCollection []T1, dstCollection []T2, pred common
 		}
 	}
 
-	return output
+	return dstCollection[0:output]
 }
 
 // TransformAppendIf transforms all items in srcCollection that match the given predicate.
@@ -53,7 +54,7 @@ func TransformAppendIf[T1, T2 any](srcCollection []T1, pred common.Predicate[T1]
 // Items which don't match are just copied. dstCollection must
 // be at least as large as srcCollection. The return value indicates how many items were transformed.
 func TransformCopyIf[T any](srcCollection []T, dstCollection []T, pred common.Predicate[T], unary common.UnaryTransform[T,
-	T]) {
+	T]) []T {
 	for i, item := range srcCollection {
 		if pred(item) {
 			dstCollection[i] = unary(item)
@@ -61,4 +62,6 @@ func TransformCopyIf[T any](srcCollection []T, dstCollection []T, pred common.Pr
 			dstCollection[i] = item
 		}
 	}
+
+	return dstCollection
 }

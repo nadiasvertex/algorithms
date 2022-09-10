@@ -971,156 +971,180 @@ func TestReverseCopy(t *testing.T) {
 }
 
 /*
-func TestRotate(t *testing.T) {
-	type args struct {
-		collection []T
-		nFirst     int
+	func TestRotate(t *testing.T) {
+		type args struct {
+			collection []T
+			nFirst     int
+		}
+		tests := []struct {
+			name string
+			args args
+			want int
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				if got := Rotate(tt.args.collection, tt.args.nFirst); got != tt.want {
+					t.Errorf("Rotate() = %v, want %v", got, tt.want)
+				}
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := Rotate(tt.args.collection, tt.args.nFirst); got != tt.want {
-				t.Errorf("Rotate() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
-func TestRotateRange(t *testing.T) {
-	type args struct {
-		collection []T
-		first      int
-		nFirst     int
-		last       int
+	func TestRotateRange(t *testing.T) {
+		type args struct {
+			collection []T
+			first      int
+			nFirst     int
+			last       int
+		}
+		tests := []struct {
+			name string
+			args args
+			want int
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				if got := RotateRange(tt.args.collection, tt.args.first, tt.args.nFirst, tt.args.last); got != tt.want {
+					t.Errorf("RotateRange() = %v, want %v", got, tt.want)
+				}
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := RotateRange(tt.args.collection, tt.args.first, tt.args.nFirst, tt.args.last); got != tt.want {
-				t.Errorf("RotateRange() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
-func TestSort(t *testing.T) {
-	type args struct {
-		collection []T
+	func TestSort(t *testing.T) {
+		type args struct {
+			collection []T
+		}
+		tests := []struct {
+			name string
+			args args
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				Sort(tt.args.collection)
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			Sort(tt.args.collection)
-		})
-	}
-}
 
-func TestSortPartition(t *testing.T) {
-	type args struct {
-		collection []T
-		lo         int
-		hi         int
+	func TestSortPartition(t *testing.T) {
+		type args struct {
+			collection []T
+			lo         int
+			hi         int
+		}
+		tests := []struct {
+			name string
+			args args
+			want int
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				if got := SortPartition(tt.args.collection, tt.args.lo, tt.args.hi); got != tt.want {
+					t.Errorf("SortPartition() = %v, want %v", got, tt.want)
+				}
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := SortPartition(tt.args.collection, tt.args.lo, tt.args.hi); got != tt.want {
-				t.Errorf("SortPartition() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
-func TestSwap(t *testing.T) {
-	type args struct {
-		i1 *T
-		i2 *T
+	func TestSwap(t *testing.T) {
+		type args struct {
+			i1 *T
+			i2 *T
+		}
+		tests := []struct {
+			name string
+			args args
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				Swap(tt.args.i1, tt.args.i2)
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			Swap(tt.args.i1, tt.args.i2)
-		})
-	}
-}
 
-func TestSwapIndex(t *testing.T) {
-	type args struct {
-		collection []T
-		i1         int
-		i2         int
+	func TestSwapIndex(t *testing.T) {
+		type args struct {
+			collection []T
+			i1         int
+			i2         int
+		}
+		tests := []struct {
+			name string
+			args args
+		}{
+			// TODO: Add test cases.
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				SwapIndex(tt.args.collection, tt.args.i1, tt.args.i2)
+			})
+		}
 	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			SwapIndex(tt.args.collection, tt.args.i1, tt.args.i2)
-		})
-	}
-}
+*/
 
 func TestTransform(t *testing.T) {
 	type args struct {
-		srcCollection []T1
-		dstCollection []T2
-		unary         UnaryTransform
+		srcCollection []int
+		dstCollection []int
+		unary         common.UnaryTransform[int, int]
 	}
 	tests := []struct {
 		name string
 		args args
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "double ints",
+			args: args{
+				srcCollection: []int{1, 2, 3, 4, 5, 6},
+				dstCollection: make([]int, 6),
+				unary: func(value int) int {
+					return value * 2
+				},
+			},
+			want: []int{2, 4, 6, 8, 10, 12},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			Transform(tt.args.srcCollection, tt.args.dstCollection, tt.args.unary)
+			if got := Transform(tt.args.srcCollection, tt.args.dstCollection, tt.args.unary); !reflect.DeepEqual(got,
+				tt.want) {
+				t.Errorf("Transform() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
 
 func TestTransformAppend(t *testing.T) {
 	type args struct {
-		srcCollection []T1
-		unary         UnaryTransform
+		srcCollection []int
+		unary         common.UnaryTransform[int, int]
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T2
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "double ints",
+			args: args{
+				srcCollection: []int{1, 2, 3, 4, 5, 6},
+				unary: func(value int) int {
+					return value * 2
+				},
+			},
+			want: []int{2, 4, 6, 8, 10, 12},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1133,16 +1157,28 @@ func TestTransformAppend(t *testing.T) {
 
 func TestTransformAppendIf(t *testing.T) {
 	type args struct {
-		srcCollection []T1
-		pred          Predicate
-		unary         UnaryTransform
+		srcCollection []int
+		pred          common.Predicate[int]
+		unary         common.UnaryTransform[int, int]
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T2
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "double ints",
+			args: args{
+				srcCollection: []int{1, 2, 3, 4, 5, 6},
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+				unary: func(value int) int {
+					return value * 2
+				},
+			},
+			want: []int{4, 8, 12},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1155,41 +1191,72 @@ func TestTransformAppendIf(t *testing.T) {
 
 func TestTransformCopyIf(t *testing.T) {
 	type args struct {
-		srcCollection []T
-		dstCollection []T
-		pred          Predicate
-		unary         UnaryTransform
+		srcCollection []int
+		dstCollection []int
+		pred          common.Predicate[int]
+		unary         common.UnaryTransform[int, int]
 	}
 	tests := []struct {
 		name string
 		args args
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "double even ints",
+			args: args{
+				srcCollection: []int{1, 2, 3, 4, 5, 6},
+				dstCollection: make([]int, 6),
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+				unary: func(value int) int {
+					return value * 2
+				},
+			},
+			want: []int{1, 4, 3, 8, 5, 12},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			TransformCopyIf(tt.args.srcCollection, tt.args.dstCollection, tt.args.pred, tt.args.unary)
+			if got := TransformCopyIf(tt.args.srcCollection, tt.args.dstCollection, tt.args.pred,
+				tt.args.unary); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TransformCopyIf() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
 
 func TestTransformIf(t *testing.T) {
 	type args struct {
-		srcCollection []T1
-		dstCollection []T2
-		pred          Predicate
-		unary         UnaryTransform
+		srcCollection []int
+		dstCollection []int
+		pred          common.Predicate[int]
+		unary         common.UnaryTransform[int, int]
 	}
 	tests := []struct {
 		name string
 		args args
-		want int
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "double even ints",
+			args: args{
+				srcCollection: []int{1, 2, 3, 4, 5, 6},
+				dstCollection: make([]int, 6),
+				pred: func(value int) bool {
+					return value%2 == 0
+				},
+				unary: func(value int) int {
+					return value * 2
+				},
+			},
+			want: []int{4, 8, 12},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := TransformIf(tt.args.srcCollection, tt.args.dstCollection, tt.args.pred, tt.args.unary); got != tt.want {
+			if got := TransformIf(tt.args.srcCollection, tt.args.dstCollection, tt.args.pred,
+				tt.args.unary); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TransformIf() = %v, want %v", got, tt.want)
 			}
 		})
@@ -1198,14 +1265,27 @@ func TestTransformIf(t *testing.T) {
 
 func TestUnique(t *testing.T) {
 	type args struct {
-		collection []T
+		collection []int
 	}
 	tests := []struct {
 		name string
 		args args
-		want []T
+		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "remove duplicate values",
+			args: args{
+				collection: []int{1, 1, 1, 1, 1, 2, 3, 4, 4, 4, 4, 4, 5, 6, 7, 8},
+			},
+			want: []int{1, 2, 3, 4, 5, 6, 7, 8},
+		},
+		{
+			name: "don't die on small collection",
+			args: args{
+				collection: []int{1},
+			},
+			want: []int{1},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1215,5 +1295,3 @@ func TestUnique(t *testing.T) {
 		})
 	}
 }
-
-*/
