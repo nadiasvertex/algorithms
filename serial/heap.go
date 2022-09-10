@@ -2,29 +2,31 @@ package serial
 
 import (
 	"golang.org/x/exp/constraints"
-	"math"
 )
 
 func MakeHeap[T constraints.Ordered](collection []T) {
-	count := len(collection)
-	end := 1
-	for end < count {
-		siftUp(collection, 0, end)
-		end++
+	size := len(collection)
+	start := size/2 - 1 // last non leaf
+	for start >= 0 {
+		siftDown(collection, start, size-1)
+		start = start - 1
 	}
 }
 
-func parentIndex(i int) int {
-	return int(math.Floor(float64(i-1) / 2.0))
-}
-
-func siftUp[T constraints.Ordered](collection []T, start, end int) {
-	child := end
-	for child > start {
-		parent := parentIndex(child)
-		if collection[parent] < collection[child] {
-			SwapIndex(collection, parent, child)
-			child = parent
+func siftDown[T constraints.Ordered](collection []T, start, end int) {
+	root := start
+	for root*2+1 <= end {
+		lchild := root*2 + 1 // subscript of left child
+		swap := root
+		if collection[swap] < collection[lchild] {
+			swap = lchild // should swap root & left child
+		}
+		if lchild+1 <= end && collection[swap] < collection[lchild+1] {
+			swap = lchild + 1 // should swap root & right child
+		}
+		if swap != root { // if one of children is greater
+			SwapIndex(collection, root, swap) // swap root & larger child
+			root = swap
 		} else {
 			return
 		}

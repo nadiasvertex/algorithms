@@ -27,13 +27,12 @@ func SortPartition[T constraints.Ordered](collection []T, lo, hi int) int {
 
 func HeapSort[T constraints.Ordered](collection []T) {
 	MakeHeap(collection)
-
-	count := len(collection)
-	end := count - 1
-	for end > count {
-		SwapIndex(collection, end, 0)
-		MakeHeap(collection[0:end])
-		end--
+	size := len(collection)
+	last := size - 1 // subscript of last item
+	for last > 0 {
+		SwapIndex(collection, last, 0)
+		last = last - 1
+		siftDown(collection, 0, last)
 	}
 }
 

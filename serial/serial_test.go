@@ -1040,6 +1040,60 @@ func TestRotateRange(t *testing.T) {
 	}
 }
 
+func TestMakeHeap(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "heapify integers",
+			args: args{
+				collection: []int{5, 4, 3, 7, 8, 9, 2, 1, 6},
+			},
+			want: []int{9, 8, 5, 7, 4, 3, 2, 1, 6},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			MakeHeap(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("MakeHeap() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
+
+func TestHeapSort(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "sort integers",
+			args: args{
+				collection: []int{5, 4, 3, 7, 8, 9, 2, 1, 6},
+			},
+			want: []int{1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			HeapSort(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("HeapSort() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
+
 /*
 	func TestSort(t *testing.T) {
 		type args struct {
