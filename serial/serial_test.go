@@ -1053,44 +1053,68 @@ func TestReverseCopy(t *testing.T) {
 			})
 		}
 	}
-
-	func TestSwap(t *testing.T) {
-		type args struct {
-			i1 *T
-			i2 *T
-		}
-		tests := []struct {
-			name string
-			args args
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				Swap(tt.args.i1, tt.args.i2)
-			})
-		}
-	}
-
-	func TestSwapIndex(t *testing.T) {
-		type args struct {
-			collection []T
-			i1         int
-			i2         int
-		}
-		tests := []struct {
-			name string
-			args args
-		}{
-			// TODO: Add test cases.
-		}
-		for _, tt := range tests {
-			t.Run(tt.name, func(t *testing.T) {
-				SwapIndex(tt.args.collection, tt.args.i1, tt.args.i2)
-			})
-		}
-	}
 */
+
+func TestSwap(t *testing.T) {
+	v1 := 5
+	v2 := 10
+
+	type args struct {
+		i1 *int
+		i2 *int
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "swap ints",
+			args: args{
+				&v1,
+				&v2,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Swap(tt.args.i1, tt.args.i2)
+			if v1 != 10 || v2 != 5 {
+				t.Errorf("Swap() = (%d, %d), want (10, 5)", v1, v2)
+			}
+		})
+	}
+}
+
+func TestSwapIndex(t *testing.T) {
+	type args struct {
+		collection []int
+		i1         int
+		i2         int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "swap first two items",
+			args: args{
+				collection: []int{0, 1, 2, 3, 4, 5},
+				i1:         0,
+				i2:         1,
+			},
+			want: []int{1, 0, 2, 3, 4, 5},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			SwapIndex(tt.args.collection, tt.args.i1, tt.args.i2)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("SwapIndex() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
 
 func TestTransform(t *testing.T) {
 	type args struct {
