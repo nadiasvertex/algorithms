@@ -545,6 +545,87 @@ func TestFindIfNot(t *testing.T) {
 	}
 }
 
+func TestMaxElement(t *testing.T) {
+	col := RandomShuffle([]int{1, 2, 3, 4, 5, 6})
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "max element",
+			args: args{
+				collection: col,
+			},
+			want: Find(col, 6),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MaxElement(tt.args.collection); got != tt.want {
+				t.Errorf("MaxElement() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMinElement(t *testing.T) {
+	col := RandomShuffle([]int{1, 2, 3, 4, 5, 6})
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "min element",
+			args: args{
+				collection: col,
+			},
+			want: Find(col, 1),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MinElement(tt.args.collection); got != tt.want {
+				t.Errorf("MinElement() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMinMaxElement(t *testing.T) {
+	col := RandomShuffle([]int{1, 2, 3, 4, 5, 6})
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "min/max element",
+			args: args{
+				collection: col,
+			},
+			want: []int{Find(col, 1), Find(col, 6)},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if min, max := MinMaxElement(tt.args.collection); min != tt.want[0] || max != tt.want[1] {
+				t.Errorf("MinElement() = (%d, %d), want %v", min, max, tt.want)
+			}
+		})
+	}
+}
+
 func TestGenerate(t *testing.T) {
 	type args struct {
 		collection []int
@@ -575,18 +656,24 @@ func TestGenerate(t *testing.T) {
 	}
 }
 
-/*
 func TestMax(t *testing.T) {
 	type args struct {
-		v1 T
-		v2 T
+		v1 int
+		v2 int
 	}
 	tests := []struct {
 		name string
 		args args
-		want T
+		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "max of different values",
+			args: args{
+				v1: 5,
+				v2: 10,
+			},
+			want: 10,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -597,17 +684,52 @@ func TestMax(t *testing.T) {
 	}
 }
 
-func TestMismatch(t *testing.T) {
+func TestMin(t *testing.T) {
 	type args struct {
-		collection1 []T
-		collection2 []T
+		v1 int
+		v2 int
 	}
 	tests := []struct {
 		name string
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "min of different values",
+			args: args{
+				v1: 5,
+				v2: 10,
+			},
+			want: 5,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Min(tt.args.v1, tt.args.v2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Min() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMismatch(t *testing.T) {
+	type args struct {
+		collection1 []int
+		collection2 []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "find actual mismatch",
+			args: args{
+				collection1: []int{1, 2, 3, 4, 5, 6, 7, 8, 9},
+				collection2: []int{1, 2, 3, 4, 10, 11, 12, 13},
+			},
+			want: 4,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -617,7 +739,6 @@ func TestMismatch(t *testing.T) {
 		})
 	}
 }
-*/
 
 func TestNoneOf(t *testing.T) {
 	type args struct {
