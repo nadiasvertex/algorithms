@@ -1077,7 +1077,7 @@ func TestHeapSort(t *testing.T) {
 		want []int
 	}{
 		{
-			name: "sort integers",
+			name: "sort integers using heap",
 			args: args{
 				collection: []int{5, 4, 3, 7, 8, 9, 2, 1, 6},
 			},
@@ -1089,6 +1089,60 @@ func TestHeapSort(t *testing.T) {
 			HeapSort(tt.args.collection)
 			if !reflect.DeepEqual(tt.args.collection, tt.want) {
 				t.Errorf("HeapSort() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
+
+func TestSort(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "sort integers using default algorithm",
+			args: args{
+				collection: []int{5, 4, 3, 7, 8, 9, 2, 1, 6},
+			},
+			want: []int{1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Sort(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("Sort() = %v, want %v", tt.args.collection, tt.want)
+			}
+		})
+	}
+}
+
+func TestInsertionSort(t *testing.T) {
+	type args struct {
+		collection []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "sort integers using insertion",
+			args: args{
+				collection: []int{5, 4, 3, 7, 8, 9, 2, 1, 6},
+			},
+			want: []int{1, 2, 3, 4, 5, 6, 7, 8, 9},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			InsertionSort(tt.args.collection)
+			if !reflect.DeepEqual(tt.args.collection, tt.want) {
+				t.Errorf("InsertionSort() = %v, want %v", tt.args.collection, tt.want)
 			}
 		})
 	}
