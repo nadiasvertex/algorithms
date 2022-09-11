@@ -7,6 +7,11 @@ type Optional[T any] struct {
 	value T
 }
 
+// Reset resets the value of the optional
+func (f *Optional[T]) Reset() {
+	f = nil
+}
+
 // Value provides the contained value, or panics if there is none.
 func (f *Optional[T]) Value() T {
 	if f == nil {
