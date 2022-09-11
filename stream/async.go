@@ -11,7 +11,7 @@ type asyncStream[T any] struct {
 	closed  atomic.Bool
 }
 
-func (s *asyncStream[T]) Next() cnt.Optional[T] {
+func (s *asyncStream[T]) Next() *cnt.Optional[T] {
 	if v, ok := <-s.channel; ok {
 		return cnt.MakeOptional(v)
 	}

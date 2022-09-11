@@ -8,6 +8,11 @@ type MirrorChunkWorker func(leftFirst, leftLast, rightFirst, rightLast int)
 
 const DefaultChunkSize = 512
 
+type ChunkExtents struct {
+	First int
+	Last  int
+}
+
 type chunkMetrics struct {
 	nChunks        int
 	chunkSize      int
@@ -56,7 +61,7 @@ func chunkPartitioner(first, last, requestedChunkSize int) chunkMetrics {
 	return chunkMetrics{nChunks, chunkSize, firstChunkSize}
 }
 
-func processChunk(metrics chunkMetrics, base, chunkIndex int, f ChunkWorker) {
+func chunkExtents(metrics chunkMetrics, base int, chunkIndex int) (int, int) {
 	var thisChunkSize int
 	if chunkIndex == 0 {
 		thisChunkSize = metrics.firstChunkSize
@@ -71,6 +76,11 @@ func processChunk(metrics chunkMetrics, base, chunkIndex int, f ChunkWorker) {
 	}
 	first := base + index
 	last := first + thisChunkSize
+	return first, last
+}
+
+func processChunk(metrics chunkMetrics, base, chunkIndex int, f ChunkWorker) {
+	first, last := chunkExtents(metrics, base, chunkIndex)
 	f(first, last)
 }
 
@@ -95,6 +105,21 @@ func processMirrorChunk(metrics chunkMetrics, outerFirst, outerLast, chunkIndex 
 	rightFirst := rightLast - thisChunkSize
 
 	f(leftFirst, leftLast, rightFirst, rightLast)
+}
+
+func Chunks(first, last, requestedChunkSize int) []ChunkExtents {
+	var extents []ChunkExtents
+
+	metrics := chunkPartitioner(first, last, requestedChunkSize)
+	for i := 0; i < metrics.nChunks; i++ {
+		chunkFirst, chunkLast := chunkExtents(metrics, first, i)
+		extents = append(extents, ChunkExtents{
+			First: chunkFirst,
+			Last:  chunkLast,
+		})
+	}
+
+	return extents
 }
 
 func Fork(w1, w2 Worker) {

@@ -10,7 +10,7 @@ type filterStream[T any] struct {
 	pred  common.Predicate[T]
 }
 
-func (s *filterStream[T]) Next() cnt.Optional[T] {
+func (s *filterStream[T]) Next() *cnt.Optional[T] {
 	for {
 		if v := s.input.Next(); !v.HasValue() || s.pred(v.Value()) {
 			return v

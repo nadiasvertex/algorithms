@@ -8,7 +8,7 @@ type takeStream[T any] struct {
 	limit int
 }
 
-func (s *takeStream[T]) Next() cnt.Optional[T] {
+func (s *takeStream[T]) Next() *cnt.Optional[T] {
 	if s.taken == s.limit {
 		return cnt.NullOpt[T]()
 	}

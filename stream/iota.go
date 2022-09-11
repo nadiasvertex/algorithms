@@ -9,7 +9,7 @@ type iotaStream[T constraints.Integer] struct {
 	next T
 }
 
-func (s *iotaStream[T]) Next() cnt.Optional[T] {
+func (s *iotaStream[T]) Next() *cnt.Optional[T] {
 	current := cnt.MakeOptional(s.next)
 	s.next++
 	return current

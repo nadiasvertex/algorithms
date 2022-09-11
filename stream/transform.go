@@ -10,7 +10,7 @@ type transformStream[T1, T2 any] struct {
 	xform common.UnaryTransform[T1, T2]
 }
 
-func (s *transformStream[T1, T2]) Next() cnt.Optional[T2] {
+func (s *transformStream[T1, T2]) Next() *cnt.Optional[T2] {
 	return cnt.Transform(s.input.Next(), s.xform)
 }
 

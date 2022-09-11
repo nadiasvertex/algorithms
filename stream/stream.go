@@ -10,5 +10,5 @@ import "github.com/nadiasvertex/algorithms/cnt"
 type Stream[T any] interface {
 	// Next retrieves the next item from the stream. It returns an Optional[T].
 	// If the result is empty it means that the stream has finished.
-	Next() cnt.Optional[T]
+	Next() *cnt.Optional[T]
 }

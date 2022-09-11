@@ -8,7 +8,7 @@ type skipStream[T any] struct {
 	limit   int
 }
 
-func (s *skipStream[T]) Next() cnt.Optional[T] {
+func (s *skipStream[T]) Next() *cnt.Optional[T] {
 	for ; s.skipped < s.limit; s.skipped++ {
 		if v := s.input.Next(); !v.HasValue() {
 			return v
