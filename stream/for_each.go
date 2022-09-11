@@ -8,6 +8,8 @@ func ForEach[T any](s Stream[T], op common.UnaryOp[T]) {
 	for {
 		if v := s.Next(); v.HasValue() {
 			op(v.Value())
+		} else {
+			return
 		}
 	}
 }

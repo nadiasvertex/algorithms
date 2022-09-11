@@ -1,15 +1,18 @@
 package stream
 
-import "golang.org/x/exp/constraints"
+import (
+	"github.com/nadiasvertex/algorithms/cnt"
+	"golang.org/x/exp/constraints"
+)
 
 type iotaStream[T constraints.Integer] struct {
 	next T
 }
 
 func (s *iotaStream[T]) Next() cnt.Optional[T] {
-	current := s.next
+	current := cnt.MakeOptional(s.next)
 	s.next++
-	return current, false
+	return current
 }
 
 // Iota creates a stream that provides an infinite number of monotonically

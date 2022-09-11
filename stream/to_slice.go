@@ -4,11 +4,10 @@ package stream
 func ToSlice[T any](input Stream[T]) []T {
 	var output []T
 	for {
-		_ := input.Next()
-		if atEnd {
+		if v := input.Next(); !v.HasValue() {
 			return output
+		} else {
+			output = append(output, v.Value())
 		}
-
-		output = append(output, v)
 	}
 }
