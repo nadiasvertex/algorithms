@@ -1,18 +1,19 @@
 package stream
 
-import "github.com/nadiasvertex/algorithms/common"
+import (
+	"github.com/nadiasvertex/algorithms/cnt"
+	"github.com/nadiasvertex/algorithms/common"
+)
 
 type filterStream[T any] struct {
 	input Stream[T]
 	pred  common.Predicate[T]
 }
 
-func (s *filterStream[T]) Next() (T, bool) {
+func (s *filterStream[T]) Next() cnt.Optional[T] {
 	for {
-		if v, atEnd := s.input.Next(); atEnd {
-			return v, atEnd
-		} else if s.pred(v) {
-			return v, false
+		if v := s.input.Next(); !v.HasValue() || s.pred(v.Value()) {
+			return v
 		}
 	}
 }

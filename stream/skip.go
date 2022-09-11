@@ -1,15 +1,17 @@
 package stream
 
+import "github.com/nadiasvertex/algorithms/cnt"
+
 type skipStream[T any] struct {
 	input   Stream[T]
 	skipped int
 	limit   int
 }
 
-func (s *skipStream[T]) Next() (T, bool) {
+func (s *skipStream[T]) Next() cnt.Optional[T] {
 	for ; s.skipped < s.limit; s.skipped++ {
-		if v, atEnd := s.input.Next(); atEnd {
-			return v, atEnd
+		if v := s.input.Next(); !v.HasValue() {
+			return v
 		}
 	}
 	return s.input.Next()

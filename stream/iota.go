@@ -6,7 +6,7 @@ type iotaStream[T constraints.Integer] struct {
 	next T
 }
 
-func (s *iotaStream[T]) Next() (T, bool) {
+func (s *iotaStream[T]) Next() cnt.Optional[T] {
 	current := s.next
 	s.next++
 	return current, false

@@ -1,6 +1,7 @@
 package stream
 
 import (
+	"github.com/nadiasvertex/algorithms/cnt"
 	"sync/atomic"
 )
 
@@ -10,21 +11,22 @@ type asyncStream[T any] struct {
 	closed  atomic.Bool
 }
 
-func (s *asyncStream[T]) Next() (T, bool) {
-	v, ok := <-s.channel
-	return v, !ok
+func (s *asyncStream[T]) Next() cnt.Optional[T] {
+	if v, ok := <-s.channel; ok {
+		return cnt.MakeOptional(v)
+	}
+	return cnt.NullOpt[T]()
 }
 
 func (s *asyncStream[T]) processAsync() {
 	for {
-		v, atEnd := s.input.Next()
-		if atEnd {
+		if v := s.input.Next(); !v.HasValue() {
 			s.closed.Store(true)
 			close(s.channel)
 			return
+		} else {
+			s.channel <- v.Value()
 		}
-
-		s.channel <- v
 	}
 }
 

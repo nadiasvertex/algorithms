@@ -6,10 +6,8 @@ import "github.com/nadiasvertex/algorithms/common"
 // stream terminates.
 func ForEach[T any](s Stream[T], op common.UnaryOp[T]) {
 	for {
-		if v, atEnd := s.Next(); atEnd {
-			return
-		} else {
-			op(v)
+		if v := s.Next(); v.HasValue() {
+			op(v.Value())
 		}
 	}
 }

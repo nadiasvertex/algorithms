@@ -3,11 +3,12 @@
 // your own risk.
 package stream
 
+import "github.com/nadiasvertex/algorithms/cnt"
+
 // Stream is an interface that provides a uni-directional, pull-based data
 // processing facility.
 type Stream[T any] interface {
-	// Next retrieves the next item from the stream. It returns (value, at_end).
-	// If the stream has no more data, the bool parameter of the return will be
-	// true, otherwise it will be false.
-	Next() (T, bool)
+	// Next retrieves the next item from the stream. It returns an Optional[T].
+	// If the result is empty it means that the stream has finished.
+	Next() cnt.Optional[T]
 }

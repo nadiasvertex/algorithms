@@ -1,15 +1,16 @@
 package stream
 
+import "github.com/nadiasvertex/algorithms/cnt"
+
 type takeStream[T any] struct {
 	input Stream[T]
 	taken int
 	limit int
 }
 
-func (s *takeStream[T]) Next() (T, bool) {
+func (s *takeStream[T]) Next() cnt.Optional[T] {
 	if s.taken == s.limit {
-		var output T
-		return output, true
+		return cnt.NullOpt[T]()
 	}
 
 	s.taken++
