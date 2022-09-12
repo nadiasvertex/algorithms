@@ -30,7 +30,7 @@ func (s *asyncStream[T]) processAsync() {
 	}
 }
 
-// Async create a new asynchronous stream. The input stream will be read from
+// Async creates a new asynchronous stream. The input stream will be read from
 // a go routine, and its results transferred over a channel. That means
 // whatever work the input stream needs to do can be detached from the work
 // happening in this thread.

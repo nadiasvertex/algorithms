@@ -1,6 +1,3 @@
-// Package stream defines a set of operations that provide lazy operations on
-// a stream of data values. This package is still experimental, please use at
-// your own risk.
 package stream
 
 import "github.com/nadiasvertex/algorithms/cnt"

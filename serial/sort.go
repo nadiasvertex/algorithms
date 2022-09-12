@@ -5,12 +5,11 @@ import (
 	"math"
 )
 
-// Sort sorts the collection in ascending order. This version of sort uses the
-// best non-stable algorithm known to the library. Currently, that is introsort,
-// but may change across releases.
-func Sort[T constraints.Ordered](collection []T) {
+// Sort sorts the collection in ascending order.
+func Sort[T constraints.Ordered](collection []T) []T {
 	maxDepth := int(math.Log2(float64(len(collection)))) * 2
 	IntroSortWithDepth(collection, maxDepth)
+	return collection
 }
 
 // sortPartition performs a partition operation on collection suitable for
