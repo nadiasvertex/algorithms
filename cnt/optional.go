@@ -51,7 +51,7 @@ func (opt *Optional[T]) OrElse(cons common.UnaryGenerator[T]) *Optional[T] {
 	if opt != nil {
 		return opt
 	}
-	return MakeOptional(cons())
+	return Some(cons())
 }
 
 // HasValue returns true if there is an contained value, or false otherwise.
@@ -86,7 +86,12 @@ func NullOpt[T any]() *Optional[T] {
 	return nil
 }
 
-// MakeOptional wraps the given value in a new optional object.
-func MakeOptional[T any](value T) *Optional[T] {
+// Some wraps the given value in a new optional object.
+func Some[T any](value T) *Optional[T] {
 	return &Optional[T]{value: value}
+}
+
+// None returns a null opt.
+func None[T any]() *Optional[T] {
+	return NullOpt[T]()
 }

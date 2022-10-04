@@ -10,12 +10,12 @@ type iotaStream[T constraints.Integer] struct {
 }
 
 func (s *iotaStream[T]) Next() *cnt.Optional[T] {
-	current := cnt.MakeOptional(s.next)
+	current := cnt.Some(s.next)
 	s.next++
 	return current
 }
 
-// Iota creates a stream that provides an infinite number of monotonically
+// Iota creates a Stream that provides an infinite number of monotonically
 // increasing integers.
 func Iota[T constraints.Integer]() Stream[T] {
 	return &iotaStream[T]{
@@ -23,7 +23,7 @@ func Iota[T constraints.Integer]() Stream[T] {
 	}
 }
 
-// IotaWithStart creates a stream just like Iota, but allows you to set the
+// IotaWithStart creates a Stream just like Iota, but allows you to set the
 // starting point.
 func IotaWithStart[T constraints.Integer](start T) Stream[T] {
 	return &iotaStream[T]{

@@ -1,6 +1,6 @@
 package stream
 
-// ToSlice drains a stream and returns the result as a slice.
+// ToSlice drains a Stream and returns the result as a slice.
 func ToSlice[T any](input Stream[T]) []T {
 	var output []T
 	for {

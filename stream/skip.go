@@ -17,7 +17,7 @@ func (s *skipStream[T]) Next() *cnt.Optional[T] {
 	return s.input.Next()
 }
 
-// Skip skips a certain number of items from the input stream and delivers the
+// Skip skips a certain number of items from the input Stream and delivers the
 // remainder.
 func Skip[T any](input Stream[T], limit int) Stream[T] {
 	return &skipStream[T]{

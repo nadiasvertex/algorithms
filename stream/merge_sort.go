@@ -52,8 +52,8 @@ func (s *mergeSortStream[T]) Next() *cnt.Optional[T] {
 	return output
 }
 
-// MergeSort creates a stream that sorts the two streams. The pred function should
-// return true if value1 should come before value2. This stream step requires
+// MergeSort creates a Stream that sorts the two streams. The pred function should
+// return true if value1 should come before value2. This Stream step requires
 // that both input streams are already sorted with respect to themselves.
 func MergeSort[T any](input1, input2 Stream[T], pred common.BinaryPredicate[T]) Stream[T] {
 	return &mergeSortStream[T]{

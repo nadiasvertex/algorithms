@@ -17,7 +17,7 @@ func (s *takeStream[T]) Next() *cnt.Optional[T] {
 	return s.input.Next()
 }
 
-// Take takes a limited number of items from the stream and then stops.
+// Take takes a limited number of items from the Stream and then stops.
 func Take[T any](input Stream[T], limit int) Stream[T] {
 	return &takeStream[T]{
 		input: input,

@@ -13,7 +13,7 @@ type asyncStream[T any] struct {
 
 func (s *asyncStream[T]) Next() *cnt.Optional[T] {
 	if v, ok := <-s.channel; ok {
-		return cnt.MakeOptional(v)
+		return cnt.Some(v)
 	}
 	return cnt.NullOpt[T]()
 }
@@ -30,9 +30,9 @@ func (s *asyncStream[T]) processAsync() {
 	}
 }
 
-// Async creates a new asynchronous stream. The input stream will be read from
+// Async creates a new asynchronous Stream. The input Stream will be read from
 // a go routine, and its results transferred over a channel. That means
-// whatever work the input stream needs to do can be detached from the work
+// whatever work the input Stream needs to do can be detached from the work
 // happening in this thread.
 func Async[T any](input Stream[T]) Stream[T] {
 	s := &asyncStream[T]{

@@ -18,7 +18,7 @@ func (s *filterStream[T]) Next() *cnt.Optional[T] {
 	}
 }
 
-// Filter creates a stream step the only forwards values that match the predicate.
+// Filter creates a Stream step the only forwards values that match the predicate.
 func Filter[T any](input Stream[T], pred common.Predicate[T]) Stream[T] {
 	return &filterStream[T]{
 		input: input,

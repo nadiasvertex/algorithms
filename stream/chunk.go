@@ -2,7 +2,7 @@ package stream
 
 import "github.com/nadiasvertex/algorithms/parallel"
 
-// ChunkOut drains a stream and provides its output as an array of chunks.
+// ChunkOut drains a Stream and provides its output as an array of chunks.
 func ChunkOut[T any](input Stream[T], size int) [][]T {
 	var output [][]T
 	chunk := make([]T, size)
